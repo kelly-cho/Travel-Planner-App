@@ -19,7 +19,7 @@ const cors = require('cors');
 app.use(cors()); 
 
 // initialize the main project folder
-app.use(express.static('website'));
+app.use(express.static('dist'));
 
 // setup Server
 const port = 8000;
@@ -30,6 +30,11 @@ const server = app.listen(port, listening);
 function listening() {
     console.log(`running on localhost: ${port}`);
 }
+
+// change the home route to use the index file from dist
+app.get('/', function (req, res) {
+    res.sendFile('dist/index.html')
+})
 
 // setup GET route
 app.get('/record', getData);

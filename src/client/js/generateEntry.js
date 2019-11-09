@@ -1,18 +1,15 @@
-// global variables
-const baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
-const apiKey  = '&APPID=0e2ec7dc3d32e820f8abdd569b0742b9';
-
-// create a new date instance dynamically with JS
-let d = new Date();
-
-// in javascript, month is zero-indexed, so it's month 0-11
-let month = d.getMonth() + 1;
-let newDate = d.getFullYear() + '-' + month + '-' + d.getDate();
-
-document.getElementById('generate').addEventListener('click', generateEntry);
-
 // get weather info from the api based on the zip entered
 function generateEntry(e) {
+	const baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
+	const apiKey  = '&APPID=0e2ec7dc3d32e820f8abdd569b0742b9';
+
+	// create a new date instance dynamically with JS
+	let d = new Date();
+
+	// in javascript, month is zero-indexed, so it's month 0-11
+	let month = d.getMonth() + 1;
+	let newDate = d.getFullYear() + '-' + month + '-' + d.getDate();
+
 	const zip = document.getElementById('zip').value;
 
 	if (zip == '')
@@ -85,3 +82,11 @@ const postData = async(url = '', data = {}) => {
 	}
 }
 
+
+
+export {
+	generateEntry,
+	updateUI,
+	getWeather,
+	postData
+}
