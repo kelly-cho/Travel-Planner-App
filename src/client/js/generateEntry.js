@@ -23,14 +23,18 @@ function generateEntry(e) {
 	getWeather(baseUrl, zip, apiKey) // NO SEMICOLON!!!
 	// data is the result returned from the api call
 	.then(function(data) {
-		postData('/', {date: newDate, location: data.name, temp: data.main.temp, content: feelings});
+		postData('http://localhost:8000', {date: newDate, location: data.name, temp: data.main.temp, content: feelings});
+
+	})
+	.then(function() {
 		updateUI();
 	});
+
 }
 
 // async UPDATE UI function
 const updateUI = async() => {
-	const request = await fetch('/record');
+	const request = await fetch('http://localhost:8000/record');
 
 	try {
 		const record = await request.json();
