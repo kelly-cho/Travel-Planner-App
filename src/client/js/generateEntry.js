@@ -5,8 +5,9 @@ function generateEntry(e) {
 	const genoUrl = 'http://api.geonames.org/searchJSON?q=';
 	const username  = '&maxRows=10&username=udacity';
 
-	// the cors-anywhere URL is to fix the CORS error 
-	const dskyUrl = 'https://api.darksky.net/forecast/';
+	// use the cors-anywhere API to fix the CORS error 
+	// source: https://medium.com/@dtkatz/3-ways-to-fix-the-cors-error-and-how-access-control-allow-origin-works-d97d55946d9
+	const dskyUrl = 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/';
 	const apikey = 'a4617a54dc1452d58ec269b461e2d4c5/';
 
 	// create a new date instance dynamically with JS
@@ -47,8 +48,7 @@ function generateEntry(e) {
 		return newEntry.lat + ',' + newEntry.lng;
 	})
 	.then(function(location) {
-		alert(location);
-		getWeather(dskyUrl, apikey, location);
+		return getWeather(dskyUrl, apikey, location);
 	})
 	.then(function(data) {
 		console.log(data.timezone);
@@ -74,6 +74,7 @@ const getLocation = async(baseUrl, city, username) => {
 
 // async GET WEATHER function
 const getWeather = async(baseUrl, key, location) => {
+	console.log(baseUrl + key + location + '');
 	const response = await fetch(baseUrl + key + location);
 
 	try {
