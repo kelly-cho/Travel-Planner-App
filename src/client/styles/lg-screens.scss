@@ -1,7 +1,16 @@
 @media only screen and (min-width: 1024px) {
 
 	.app {
-	    padding: 5% 20%;	
+	    padding: 2% 20%;	
 	}
 
+	.time {
+	    display: flex;
+	    justify-content: space-between;
+	    margin: 1% 0 6% 0;
+
+	    div {
+	        flex-basis: 49%;
+	    }
+	}
 }

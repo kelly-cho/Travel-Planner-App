@@ -1,7 +1,16 @@
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
+@media only screen and (min-width: 480px) and (max-width: 1023px) {
 
 	.app {
 	    padding: 5% 10%;	
 	}
 
+	.time {
+	    display: flex;
+	    justify-content: space-between;
+	    margin: 1% 0 8% 0;
+
+	    div {
+	        flex-basis: 49%;
+	    }
+	}
 }

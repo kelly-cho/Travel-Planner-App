@@ -47,7 +47,7 @@ body {
 label {
     display: block;
     font-size: 24px;
-    margin: 5% 0 2% 0;
+    margin: 10px 0;
 }
 
 input {
@@ -60,35 +60,44 @@ input {
     background-color: #efefef;
 }
 
-.time {
-    display: flex;
-    justify-content: space-between;
-
-    div {
-        flex-basis: 49%;
-    }
-
-    #from,
-    #to {
-        text-transform: uppercase;
-    } 
-}
+#from,
+#to {
+    text-transform: uppercase;
+} 
 
 button {
     display: block;
     width: 100%;
-    height: 80px;
-    margin: 5% 0;
+    height: 60px;
+    font: 20px $app-font;
+    font-weight: 700;
     border: none;
     border-radius: 5px;
-    font-size: 24px;
-    font-weight: 700;
-    font-family: $app-font;
-    background: #ff5621;
-    color: white;    
+    cursor: pointer;
+}
+
+#generate {
+    background: #4cb2ef;
+    color: white;   
 
     &:hover {
-        background: #ff3d00;        
+        background: white;
+        color: #4cb2ef;  
+        border: 2px solid #4cb2ef;     
+    }    
+}
+
+a {
+    text-decoration: none;
+    #view {
+        background: white;
+        color: #8e72f7;  
+        border: 2px solid #8e72f7;   
+
+        &:hover {
+            background: #8e72f7;
+            color: white;
+        }        
     }
 }
 

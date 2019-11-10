@@ -33,7 +33,7 @@ function listening() {
 
 // change the home route to use the index file from dist
 app.get('/', function (req, res) {
-    res.sendFile('dist/index.html')
+    res.sendFile('dist/index.html');
 })
 
 // setup GET route

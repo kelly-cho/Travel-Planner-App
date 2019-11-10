@@ -45,7 +45,6 @@ const updateUI = async() => {
 
 		// reset enter fields
 		document.getElementById('city').value = '';
-		document.getElementById('feelings').value = '';
 
 	} catch(error) {
 		console.log('error', error);

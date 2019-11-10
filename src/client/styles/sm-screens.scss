@@ -1,7 +1,15 @@
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 479px) {
 	
 	.app {
-	    padding: 10% 5%;	
+	    padding: 5% 10%;	
 	}
 
+	.time {
+	    display: grid;
+	    margin: 1% 0 10% 0;
+
+	    div {
+	        width: 100%;
+	    }
+	}
 }
