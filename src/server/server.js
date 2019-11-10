@@ -47,7 +47,8 @@ function getData(req, res) {
 app.post('/', postData);
 
 function postData(req, res) {
-	projectData.date = req.body.date;
+	projectData.from = req.body.from;
+	projectData.to = req.body.to;
 	projectData.city = req.body.city;
 	projectData.country = req.body.country;
 	projectData.lng = req.body.lng;

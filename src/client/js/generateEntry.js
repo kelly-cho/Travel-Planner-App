@@ -8,9 +8,12 @@ function generateEntry(e) {
 
 	// in javascript, month is zero-indexed, so it's month 0-11
 	let month = d.getMonth() + 1;
-	let newDate = d.getFullYear() + '-' + month + '-' + d.getDate();
+	let today = d.getFullYear() + '-' + month + '-' + d.getDate();
 
 	const city = document.getElementById('input-city').value;
+	const fromDate = document.getElementById('input-from').value;
+	const toDate = document.getElementById('input-to').value;
+	alert(fromDate + " " + toDate);
 
 	if (city == '')
 	{
@@ -27,7 +30,7 @@ function generateEntry(e) {
 		}
 
 		const data = result.geonames[0];
-		postData('http://localhost:8000', {date: newDate, city: data.toponymName, country: data.countryName, lng: data.lng, lat: data.lat});
+		postData('http://localhost:8000', {from: fromDate, to: toDate, city: data.toponymName, country: data.countryName, lng: data.lng, lat: data.lat});
 
 	})
 	.then(function() {
@@ -43,7 +46,7 @@ const updateUI = async() => {
 	try {
 		const record = await request.json();
 
-		document.getElementById('date').innerHTML = record.date;
+		document.getElementById('date').innerHTML = record.from;
 		document.getElementById('location').innerHTML = 'City: ' + record.city;
 		document.getElementById('temp').innerHTML = 'Country: ' + record.country;
 		document.getElementById('lng').innerHTML = 'Longitude: ' + record.lng;
