@@ -2,8 +2,12 @@ const newEntry = {};
 
 // get weather info from the api based on the city name entered
 function generateEntry(e) {
-	const baseUrl = 'http://api.geonames.org/searchJSON?q=';
+	const genoUrl = 'http://api.geonames.org/searchJSON?q=';
 	const username  = '&maxRows=10&username=udacity';
+
+	// the cors-anywhere URL is to fix the CORS error 
+	const dskyUrl = 'https://api.darksky.net/forecast/';
+	const apikey = 'a4617a54dc1452d58ec269b461e2d4c5/';
 
 	// create a new date instance dynamically with JS
 	let d = new Date();
@@ -12,10 +16,10 @@ function generateEntry(e) {
 	let month = d.getMonth() + 1;
 	let today = d.getFullYear() + '-' + month + '-' + d.getDate();
 
+	// get user input
 	const city = document.getElementById('input-city').value;
 	const fromDate = document.getElementById('input-from').value;
 	const toDate = document.getElementById('input-to').value;
-	alert(fromDate + " " + toDate);
 
 	if (city == '')
 	{
@@ -23,7 +27,7 @@ function generateEntry(e) {
 		return;
 	}
 
-	getLocation(baseUrl, city, username) // NO SEMICOLON!!!
+	getLocation(genoUrl, city, username) // NO SEMICOLON!!!
 	// data is the result returned from the api call
 	.then(function(result) {
 		if(result.totalResultsCount == 0) {
@@ -40,8 +44,14 @@ function generateEntry(e) {
 		newEntry.lng = data.lng;
 		newEntry.lat = data.lat;
 
+		return newEntry.lat + ',' + newEntry.lng;
 	})
-	.then(function() {
+	.then(function(location) {
+		alert(location);
+		getWeather(dskyUrl, apikey, location);
+	})
+	.then(function(data) {
+		console.log(data.timezone);
 		postData('http://localhost:8000', newEntry);
 	})
 	.then(function() {
@@ -50,32 +60,21 @@ function generateEntry(e) {
 
 }
 
-// async UPDATE UI function
-const updateUI = async() => {
-	const request = await fetch('http://localhost:8000/record');
+// async GET LOCATION function
+const getLocation = async(baseUrl, city, username) => {
+	const response = await fetch(baseUrl + city + username);
 
 	try {
-		const record = await request.json();
-
-		document.getElementById('date').innerHTML = record.from;
-		document.getElementById('location').innerHTML = 'City: ' + record.city;
-		document.getElementById('temp').innerHTML = 'Country: ' + record.country;
-		document.getElementById('lng').innerHTML = 'Longitude: ' + record.lng;
-		document.getElementById('lat').innerHTML = 'Latitude: ' + record.lat;
-
-		// reset enter fields
-		document.getElementById('input-city').value = '';
-		document.getElementById('input-from').value = '';
-		document.getElementById('input-to').value = '';
-
+		const data = await response.json();
+		return data;
 	} catch(error) {
-		console.log('error in updateUI()', error);
+		console.log('error in getLocation()', error);
 	}
 }
 
 // async GET WEATHER function
-const getLocation = async(baseUrl, city, username) => {
-	const response = await fetch(baseUrl + city + username);
+const getWeather = async(baseUrl, key, location) => {
+	const response = await fetch(baseUrl + key + location);
 
 	try {
 		const data = await response.json();
@@ -106,11 +105,33 @@ const postData = async(url = '', data = {}) => {
 	}
 }
 
+// async UPDATE UI function
+const updateUI = async() => {
+	const request = await fetch('http://localhost:8000/record');
 
+	try {
+		const record = await request.json();
+
+		document.getElementById('date').innerHTML = record.from;
+		document.getElementById('location').innerHTML = 'City: ' + record.city;
+		document.getElementById('temp').innerHTML = 'Country: ' + record.country;
+		document.getElementById('lng').innerHTML = 'Longitude: ' + record.lng;
+		document.getElementById('lat').innerHTML = 'Latitude: ' + record.lat;
+
+		// reset enter fields
+		document.getElementById('input-city').value = '';
+		document.getElementById('input-from').value = '';
+		document.getElementById('input-to').value = '';
+
+	} catch(error) {
+		console.log('error in updateUI()', error);
+	}
+}
 
 export {
 	generateEntry,
-	updateUI,
 	getLocation,
-	postData
+	getWeather,
+	postData,
+	updateUI
 }
