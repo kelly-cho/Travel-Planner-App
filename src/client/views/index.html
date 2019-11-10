@@ -16,32 +16,33 @@
 
 		<div class="app">
 			<div class="form">
-				<label for="city">Where are you going?</label>
-				<input type="text" id="city" placeholder="Enter the name of the city">
+				<label>Where are you going?</label>
+				<input type="text" id="input-city" placeholder="Enter the destination of your trip">
 
 				<div class="time">
 					<div>
 						<label>From</label>
-						<input type="date" id="from" required="required">
+						<input type="date" id="input-from" placeholder="yyyy-mm-dd" required="required">
 					</div>
 
 					<div>
 						<label>To</label>
-						<input type="date" id="to" required="required">
+						<input type="date" id="input-to" placeholder="yyyy-mm-dd" required="required">
 					</div>
 				</div>
 				<button id="generate" type="submit">Save This Trip</button>
 			</div>
 
-			<a href="./newtrip.html"><button id="view" type="submit">View All Trips</button></a>
+			<!--a href="./newtrip.html"><button id="view" type="submit">View All Trips</button></a-->
 
-			<div class="entry">
-				<div class="title">Most Recent Entry</div>
-				<div id="entryHolder">
+			<div class="entries">
+				<div class="record">All My Trips</div>
+				<div id="entry">
 					<div id="date"></div> 
 					<div id="location"></div>
 					<div id="temp"></div>
-					<div id="content"></div>
+					<div id="lng"></div>
+					<div id="lat"></div>
 				</div>
 			</div>
 		</div>

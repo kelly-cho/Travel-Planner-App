@@ -48,7 +48,8 @@ app.post('/', postData);
 
 function postData(req, res) {
 	projectData.date = req.body.date;
-	projectData.location = req.body.location;
-	projectData.temp = req.body.temp;
-	projectData.content = req.body.content;
+	projectData.city = req.body.city;
+	projectData.country = req.body.country;
+	projectData.lng = req.body.lng;
+	projectData.lat = req.body.lat;
 }

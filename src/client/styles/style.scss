@@ -1,5 +1,6 @@
 /* scss variables */
 $app-font: 'Poppins', sans-serif;
+$gradient: linear-gradient(90deg, rgb(37, 217, 235) 0%, rgb(213, 44, 255) 100%);
 
 * {
     /* browser specific prefixes */
@@ -39,14 +40,14 @@ body {
     font-weight: 700;
     text-align: center;
     padding: 5%;
-    background: linear-gradient(90deg, rgb(37, 217, 235) 0%, rgb(213, 44, 255) 100%);
+    background: $gradient;
     color: white;
 }
 
 /*  basic styling to override default for basic html elements */
 label {
     display: block;
-    font-size: 24px;
+    font-size: 22px;
     margin: 10px 0;
 }
 
@@ -60,8 +61,8 @@ input {
     background-color: #efefef;
 }
 
-#from,
-#to {
+#input-from,
+#input-to {
     text-transform: uppercase;
 } 
 
@@ -69,7 +70,7 @@ button {
     display: block;
     width: 100%;
     height: 60px;
-    font: 20px $app-font;
+    font: 18px $app-font;
     font-weight: 700;
     border: none;
     border-radius: 5px;
@@ -77,13 +78,13 @@ button {
 }
 
 #generate {
-    background: #4cb2ef;
+    background: #ff3a7a;
     color: white;   
 
     &:hover {
         background: white;
-        color: #4cb2ef;  
-        border: 2px solid #4cb2ef;     
+        color: #ff3a7a;  
+        border: 2px solid #ff3a7a;     
     }    
 }
 
@@ -101,22 +102,22 @@ a {
     }
 }
 
-.entry {
-    background: #d9f7f4;
-    min-height: 150px;
-}
+.entries {
+    margin-top: 5%;
 
-.title {
-    padding: 10px 20px;
-    background-color: #02a294;
-    color: white;
-}
+    .record {
+        padding: 10px 20px;
+        background: #4cb2ef;
+        color: white;
+        text-align: center;
+        font-size: 18px;
+    }
 
-#date,
-#location,
-#temp,
-#content {
-    padding: 10px 20px;
+    #entry {
+        min-height: 150px;
+        border: 2px solid #efefef;
+        padding: 10px 20px;
+    }
 }
 
 /* reset style for html element on active to have no border */

@@ -10,7 +10,7 @@ function generateEntry(e) {
 	let month = d.getMonth() + 1;
 	let newDate = d.getFullYear() + '-' + month + '-' + d.getDate();
 
-	const city = document.getElementById('city').value;
+	const city = document.getElementById('input-city').value;
 
 	if (city == '')
 	{
@@ -21,8 +21,13 @@ function generateEntry(e) {
 	getWeather(baseUrl, city, username) // NO SEMICOLON!!!
 	// data is the result returned from the api call
 	.then(function(result) {
+		if(result.totalResultsCount == 0) {
+			alert('Please enter a valid city name!');
+			return;
+		}
+
 		const data = result.geonames[0];
-		postData('http://localhost:8000', {date: newDate, location: data.toponymName, temp: data.countryName, content: data.lng});
+		postData('http://localhost:8000', {date: newDate, city: data.toponymName, country: data.countryName, lng: data.lng, lat: data.lat});
 
 	})
 	.then(function() {
@@ -39,15 +44,18 @@ const updateUI = async() => {
 		const record = await request.json();
 
 		document.getElementById('date').innerHTML = record.date;
-		document.getElementById('location').innerHTML = 'City: ' + record.location;
-		document.getElementById('temp').innerHTML = 'Country: ' + record.temp;
-		document.getElementById('content').innerHTML = record.content;
+		document.getElementById('location').innerHTML = 'City: ' + record.city;
+		document.getElementById('temp').innerHTML = 'Country: ' + record.country;
+		document.getElementById('lng').innerHTML = 'Longitude: ' + record.lng;
+		document.getElementById('lat').innerHTML = 'Latitude: ' + record.lat;
 
 		// reset enter fields
-		document.getElementById('city').value = '';
+		document.getElementById('input-city').value = '';
+		document.getElementById('input-from').value = '';
+		document.getElementById('input-to').value = '';
 
 	} catch(error) {
-		console.log('error', error);
+		console.log('error in updateUI()', error);
 	}
 }
 
@@ -59,7 +67,7 @@ const getWeather = async(baseUrl, city, username) => {
 		const data = await response.json();
 		return data;
 	} catch(error) {
-		console.log('error', error);
+		console.log('error in getWeather()', error);
 	}
 }
 
@@ -80,7 +88,7 @@ const postData = async(url = '', data = {}) => {
 		return newData;
 
 	} catch(error) {
-		console.log('error', error);
+		console.log('error in postData()', error);
 	}
 }
 
