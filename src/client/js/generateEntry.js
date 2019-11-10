@@ -1,3 +1,5 @@
+const newEntry = {};
+
 // get weather info from the api based on the city name entered
 function generateEntry(e) {
 	const baseUrl = 'http://api.geonames.org/searchJSON?q=';
@@ -21,7 +23,7 @@ function generateEntry(e) {
 		return;
 	}
 
-	getWeather(baseUrl, city, username) // NO SEMICOLON!!!
+	getLocation(baseUrl, city, username) // NO SEMICOLON!!!
 	// data is the result returned from the api call
 	.then(function(result) {
 		if(result.totalResultsCount == 0) {
@@ -30,8 +32,17 @@ function generateEntry(e) {
 		}
 
 		const data = result.geonames[0];
-		postData('http://localhost:8000', {from: fromDate, to: toDate, city: data.toponymName, country: data.countryName, lng: data.lng, lat: data.lat});
 
+		newEntry.from = fromDate;
+		newEntry.to = toDate;
+		newEntry.city = data.toponymName;
+		newEntry.country = data.countryName;
+		newEntry.lng = data.lng;
+		newEntry.lat = data.lat;
+
+	})
+	.then(function() {
+		postData('http://localhost:8000', newEntry);
 	})
 	.then(function() {
 		updateUI();
@@ -63,7 +74,7 @@ const updateUI = async() => {
 }
 
 // async GET WEATHER function
-const getWeather = async(baseUrl, city, username) => {
+const getLocation = async(baseUrl, city, username) => {
 	const response = await fetch(baseUrl + city + username);
 
 	try {
@@ -100,6 +111,6 @@ const postData = async(url = '', data = {}) => {
 export {
 	generateEntry,
 	updateUI,
-	getWeather,
+	getLocation,
 	postData
 }
