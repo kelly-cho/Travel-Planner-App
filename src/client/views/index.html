@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      <meta charset="UTF-8">
-      <title>Weather Journal</title>
-      <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-  </head>
+	<head>
+		<!-- browser displaying char correctly -->
+		<meta charset="utf-8"> 
+		<!-- how mobile devices display the pages correctly based on device size -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">		
+		<!-- google font -->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
 
-  <body>
-    <div id="app">
+		<title>Travel Planner</title>
+	</head>
+	
+	<body>
+		<div class="headline">Travel Planner</div>
 
-      <div class ="headline">Weather Journal App</div>
+		<div class="app">
+			<div class="form">
+				<label for="city">Where are you going?</label>
+				<input type="text" id="city" placeholder="Enter the name of the city">
 
-      <div class ="zip">
-        <label for="zip">What's Your Zipcode?</label>
-        <input type="text" id="zip" placeholder="Enter zip code here...">
-      </div>
+				<div class="time">
+					<div>
+						<label for="time">From</label>
+						<input type="date" id="from" required="required">
+					</div>
 
-      <div class ="feel">
-        <label for="feelings">How are you feeling today?</label>
-        <textarea class= "myInput" id="feelings" placeholder="Enter your feelings here..." rows="9" cols="50"></textarea>
-        <button id="generate" type = "submit"> GENERATE </button>
-      </div>
+					<div>
+						<label for="time">To</label>
+						<input type="date" id="to" required="required">
+					</div>
+				</div>
 
-      <div class ="entry">
-        <div class = "title">Most Recent Entry</div>
-        <div id = "entryHolder">
-          <div id = "date"></div> 
-          <div id = "location"></div>
-          <div id = "temp"></div>
-          <div id = "content"></div>
-        </div>
-      </div>
-    </div>
+				<button id="generate" type="submit">Save Trip</button>
+			</div>
 
-  </body>
+			<div class="entry">
+				<div class="title">Most Recent Entry</div>
+				<div id="entryHolder">
+					<div id="date"></div> 
+					<div id="location"></div>
+					<div id="temp"></div>
+					<div id="content"></div>
+				</div>
+			</div>
+		</div>
+			
+	</body>
 </html>

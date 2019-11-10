@@ -49,6 +49,6 @@ app.post('/', postData);
 function postData(req, res) {
 	projectData.date = req.body.date;
 	projectData.location = req.body.location;
-	projectData.temp = Math.round(req.body.temp - 273.15);	// convert from kelvin to celsius
+	projectData.temp = req.body.temp;
 	projectData.content = req.body.content;
 }

@@ -1,7 +1,7 @@
-// get weather info from the api based on the zip entered
+// get weather info from the api based on the city name entered
 function generateEntry(e) {
-	const baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
-	const apiKey  = '&APPID=0e2ec7dc3d32e820f8abdd569b0742b9';
+	const baseUrl = 'http://api.geonames.org/searchJSON?q=';
+	const username  = '&maxRows=10&username=udacity';
 
 	// create a new date instance dynamically with JS
 	let d = new Date();
@@ -10,20 +10,19 @@ function generateEntry(e) {
 	let month = d.getMonth() + 1;
 	let newDate = d.getFullYear() + '-' + month + '-' + d.getDate();
 
-	const zip = document.getElementById('zip').value;
+	const city = document.getElementById('city').value;
 
-	if (zip == '')
+	if (city == '')
 	{
-		alert('Please enter a valid ZIP code!');
+		alert('Please enter a valid city name!');
 		return;
 	}
 
-	const feelings = document.getElementById('feelings').value;
-	
-	getWeather(baseUrl, zip, apiKey) // NO SEMICOLON!!!
+	getWeather(baseUrl, city, username) // NO SEMICOLON!!!
 	// data is the result returned from the api call
-	.then(function(data) {
-		postData('http://localhost:8000', {date: newDate, location: data.name, temp: data.main.temp, content: feelings});
+	.then(function(result) {
+		const data = result.geonames[0];
+		postData('http://localhost:8000', {date: newDate, location: data.toponymName, temp: data.countryName, content: data.lng});
 
 	})
 	.then(function() {
@@ -40,12 +39,12 @@ const updateUI = async() => {
 		const record = await request.json();
 
 		document.getElementById('date').innerHTML = record.date;
-		document.getElementById('location').innerHTML = 'Location: ' + record.location;
-		document.getElementById('temp').innerHTML = 'Temperature: ' + record.temp + '&degC';
+		document.getElementById('location').innerHTML = 'City: ' + record.location;
+		document.getElementById('temp').innerHTML = 'Country: ' + record.temp;
 		document.getElementById('content').innerHTML = record.content;
 
 		// reset enter fields
-		document.getElementById('zip').value = '';
+		document.getElementById('city').value = '';
 		document.getElementById('feelings').value = '';
 
 	} catch(error) {
@@ -54,8 +53,8 @@ const updateUI = async() => {
 }
 
 // async GET WEATHER function
-const getWeather = async(baseUrl, zip, apiKey) => {
-	const response = await fetch(baseUrl + zip + apiKey);
+const getWeather = async(baseUrl, city, username) => {
+	const response = await fetch(baseUrl + city + username);
 
 	try {
 		const data = await response.json();
