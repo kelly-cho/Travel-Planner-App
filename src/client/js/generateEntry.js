@@ -29,7 +29,7 @@ function generateEntry(e) {
 	}
 
 	getLocation(genoUrl, city, username) // NO SEMICOLON!!!
-	// data is the result returned from the api call
+	// parameter is the "result" returned from the call to getLocation()
 	.then(function(result) {
 		if(result.totalResultsCount == 0) {
 			alert('Please enter a valid city name!');
@@ -45,13 +45,14 @@ function generateEntry(e) {
 		newEntry.lng = data.lng;
 		newEntry.lat = data.lat;
 
-		return newEntry.lat + ',' + newEntry.lng;
+		// T00:00:00 is the time format the request takes in
+		return newEntry.lat + ',' + newEntry.lng + ',' + newEntry.from + 'T00:00:00';
 	})
 	.then(function(location) {
 		return getWeather(dskyUrl, apikey, location);
 	})
-	.then(function(data) {
-		console.log(data.timezone);
+	.then(function(result) {
+		console.log(result.daily.data[0].summary);
 		postData('http://localhost:8000', newEntry);
 	})
 	.then(function() {
