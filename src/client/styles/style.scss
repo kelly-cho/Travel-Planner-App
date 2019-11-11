@@ -1,6 +1,6 @@
 /* scss variables */
 $app-font: 'Poppins', sans-serif;
-$gradient: linear-gradient(90deg, rgb(37, 217, 235) 0%, rgb(213, 44, 255) 100%);
+$gradient: linear-gradient(90deg,#03bcbd,#0b7ba5);
 
 * {
     /* browser specific prefixes */
@@ -24,7 +24,8 @@ img, embed, object, video {
 body {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     font-family: $app-font;  
-    color: #7c83f5;
+    background: #333333;
+    color: white;
     margin: 0;    
 }
 
@@ -70,7 +71,7 @@ button {
     display: block;
     width: 100%;
     height: 60px;
-    font: 18px $app-font;
+    font: 20px $app-font;
     font-weight: 700;
     border: none;
     border-radius: 5px;
@@ -78,13 +79,13 @@ button {
 }
 
 #generate {
-    background: #ff3a7a;
+    background: #02d9b1;
     color: white;   
 
     &:hover {
-        background: white;
-        color: #ff3a7a;  
-        border: 2px solid #ff3a7a;     
+        background: #333333;
+        color: #02d9b1;  
+        border: 2px solid #02d9b1;     
     }    
 }
 
@@ -105,23 +106,20 @@ a {
 .entries {
     margin-top: 3%;
     font-size: 18px;
-    
+    color: white;    
+
     .record {
-        padding: 10px 20px;
-        background: #918bf5;
-        color: white;
-        text-align: center;
+        padding: 2% 0;
+        font-size: 20px;
     }
 
     #entry {
-        min-height: 150px;
-        border: 2px solid #efefef;
-        padding: 10px 20px;
+        background: #4aabd0;
+        padding: 5%;
 
         #display {
+            margin-top: 5%:
             text-align: center;
-            font-weight: 700;
-            color: #918bf5;
         }
     }
 }
