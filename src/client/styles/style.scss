@@ -104,19 +104,25 @@ a {
 
 .entries {
     margin-top: 3%;
-
+    font-size: 18px;
+    
     .record {
         padding: 10px 20px;
-        background: #4cb2ef;
+        background: #918bf5;
         color: white;
         text-align: center;
-        font-size: 18px;
     }
 
     #entry {
         min-height: 150px;
         border: 2px solid #efefef;
         padding: 10px 20px;
+
+        #display {
+            text-align: center;
+            font-weight: 700;
+            color: #918bf5;
+        }
     }
 }
 
