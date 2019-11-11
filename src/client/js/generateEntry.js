@@ -42,17 +42,21 @@ function generateEntry(e) {
 		newEntry.to = toDate;
 		newEntry.city = data.toponymName;
 		newEntry.country = data.countryName;
-		newEntry.lng = data.lng;
-		newEntry.lat = data.lat;
 
+		// sends longtitude and latitude to the Darksky API
 		// T00:00:00 is the time format the request takes in
-		return newEntry.lat + ',' + newEntry.lng + ',' + newEntry.from + 'T00:00:00';
+		return data.lat + ',' + data.lng + ',' + newEntry.from + 'T00:00:00';
 	})
 	.then(function(location) {
 		return getWeather(dskyUrl, apikey, location);
 	})
 	.then(function(result) {
-		console.log(result.daily.data[0].summary);
+		newEntry.weather = result.daily.data[0].summary;
+		newEntry.high = result.daily.data[0].temperatureHigh;
+		newEntry.low = result.daily.data[0].temperatureLow;
+
+		console.log(newEntry.weather + " " + newEntry.high + " " + newEntry.low);
+
 		postData('http://localhost:8000', newEntry);
 	})
 	.then(function() {
@@ -75,7 +79,6 @@ const getLocation = async(baseUrl, city, username) => {
 
 // async GET WEATHER function
 const getWeather = async(baseUrl, key, location) => {
-	console.log(baseUrl + key + location + '');
 	const response = await fetch(baseUrl + key + location);
 
 	try {
@@ -110,15 +113,16 @@ const postData = async(url = '', data = {}) => {
 // async UPDATE UI function
 const updateUI = async() => {
 	const request = await fetch('http://localhost:8000/record');
+	alert('update');
 
 	try {
 		const record = await request.json();
 
-		document.getElementById('date').innerHTML = record.from;
-		document.getElementById('location').innerHTML = 'City: ' + record.city;
-		document.getElementById('temp').innerHTML = 'Country: ' + record.country;
-		document.getElementById('lng').innerHTML = 'Longitude: ' + record.lng;
-		document.getElementById('lat').innerHTML = 'Latitude: ' + record.lat;
+		document.getElementById('date').innerHTML = 'Date: ' + record.from + ' - ' + record.to;
+		document.getElementById('city').innerHTML = 'City: ' + record.city;
+		document.getElementById('country').innerHTML = 'Country: ' + record.country;
+		document.getElementById('weather').innerHTML = 'Weahter: ' + record.weather;
+		document.getElementById('temp').innerHTML = 'Temperature: ' + record.low + '&degC - ' + record.high + '&degC';
 
 		// reset enter fields
 		document.getElementById('input-city').value = '';

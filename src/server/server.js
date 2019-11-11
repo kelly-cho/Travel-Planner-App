@@ -51,6 +51,7 @@ function postData(req, res) {
 	projectData.to = req.body.to;
 	projectData.city = req.body.city;
 	projectData.country = req.body.country;
-	projectData.lng = req.body.lng;
-	projectData.lat = req.body.lat;
+	projectData.weather = req.body.weather;
+	projectData.high = req.body.high;
+	projectData.low = req.body.low;
 }
