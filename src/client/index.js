@@ -14,6 +14,3 @@ import './styles/style.scss';
 
 addListener();
 
-export {
-
-}

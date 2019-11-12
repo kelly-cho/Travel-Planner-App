@@ -74,6 +74,18 @@ function generateEntry(e) {
 	});
 }
 
+function getDuration(date1, date2) {
+	const day1 = new Date(date1);
+	const day2 = new Date(date2);
+
+	console.log(day1 + " " + day2);
+	const diff = Math.abs(day2 - day1);
+	console.log("diff " + diff);
+
+	// divided by the number of milliseconds per day
+	return Math.ceil(diff / (1000 * 60 * 60 * 24)); 
+}
+
 // async GET LOCATION function
 const getLocation = async(baseUrl, city, username) => {
 	const response = await fetch(baseUrl + city + username);
@@ -107,7 +119,7 @@ const getImage = async(baseUrl, location, type) => {
 		const data = await response.json();
 		document.getElementById('img').src = data.hits[0].webformatURL;
 		return data;
-		
+
 	} catch(error) {
 		console.log('error in getImage()', error);
 	}
@@ -144,12 +156,14 @@ const updateUI = async() => {
 		document.getElementById('date').innerHTML = record.from + ' - ' + record.to;
 		document.getElementById('location').innerHTML = 'City: ' + record.city + ', ' + record.country;
 		document.getElementById('weather').innerHTML = 'Weahter: ' + record.weather;
-		document.getElementById('temp').innerHTML = 'Temperature: ' + record.low + '&degF - ' + record.high + '&degF';
+		document.getElementById('temp').innerHTML = 'Temperature: ' + record.low + ' &degF - ' + record.high + ' &degF';
 
 		// reset enter fields
 		document.getElementById('input-city').value = '';
 		document.getElementById('input-from').value = '';
 		document.getElementById('input-to').value = '';
+
+		alert(getDuration(record.from, record.to));
 
 	} catch(error) {
 		console.log('error in updateUI()', error);
