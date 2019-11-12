@@ -153,17 +153,19 @@ const updateUI = async() => {
 	try {
 		const record = await request.json();
 
-		document.getElementById('date').innerHTML = record.from + ' - ' + record.to;
-		document.getElementById('location').innerHTML = 'City: ' + record.city + ', ' + record.country;
+		document.getElementById('display').innerHTML = `Trip to ${record.city}, ${record.country}`;
+
+		// the length of the trip in days
+		const diff = getDuration(record.from, record.to) + 1;
+
+		document.getElementById('date').innerHTML = `From ${record.from} to ${record.to} [${diff} DAY]`;
 		document.getElementById('weather').innerHTML = 'Weahter: ' + record.weather;
-		document.getElementById('temp').innerHTML = 'Temperature: ' + record.low + ' &degF - ' + record.high + ' &degF';
+		document.getElementById('temp').innerHTML = 'Temperature: ' + record.low + ' &degF [LOW], ' + record.high + ' &degF [HIGH]';
 
 		// reset enter fields
 		document.getElementById('input-city').value = '';
 		document.getElementById('input-from').value = '';
 		document.getElementById('input-to').value = '';
-
-		alert(getDuration(record.from, record.to));
 
 	} catch(error) {
 		console.log('error in updateUI()', error);

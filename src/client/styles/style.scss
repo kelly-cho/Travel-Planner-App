@@ -106,19 +106,27 @@ a {
 .entries {
     margin-top: 3%;
     font-size: 18px;
-    color: white;    
+    color: white; 
+    text-align: center;   
 
     .record {
         padding: 2% 0;
         font-size: 20px;
+        text-align: left;
     }
 
     #entry {
         background: #4aabd0;
-        padding: 5%;
+        padding-bottom: 6%;
+
+        #img {
+            width: 100%;
+        }    
 
         #display {
-            margin-top: 5%:
+            padding: 5%;
+            font-size: 20px;
+            font-weight: 700;
             text-align: center;
         }
     }
