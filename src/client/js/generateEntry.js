@@ -85,12 +85,10 @@ function getDuration(date1, date2) {
 
 // async GET LOCATION function
 const getLocation = async(baseUrl, str, username) => {
-
-
 	// replaces any space in the city name with +
 	// the g flag means to make replacement with all the spaces found
 	const city = str.replace(/\s+/g, '+');
-	console.log(baseUrl + city + username)
+
 	const response = await fetch(baseUrl + city + username);
 
 	try {
@@ -115,12 +113,10 @@ const getWeather = async(baseUrl, key, location) => {
 
 // async GET IMAGE function
 const getImage = async(baseUrl, str, type) => {
-
 	// replaces any space in the city name with +
 	// the g flag means to make replacement with all the spaces found
 	const location = str.replace(/\s+/g, '+');
 
-	console.log(baseUrl + location + type)
 	const response = await fetch(baseUrl + location + type);
 
 	try {
@@ -192,9 +188,10 @@ function addListener() {
 }
 
 // for testing JEST
-function testing(day1, day2) {
+function appTest(day1, day2) {
   return getDuration(day1, day2);
 }
+
 export {
 	generateEntry,
 	getLocation,
@@ -204,5 +201,5 @@ export {
 	updateUI,
 	resetUI,
 	addListener,
-	testing
+	appTest
 }
