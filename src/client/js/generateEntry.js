@@ -3,6 +3,7 @@ const newEntry = {};
 // get weather info from the api based on the city name entered
 function generateEntry(e) {
 
+	resetUI();
 	document.getElementById('display').innerHTML = 'Loading...';
 
 	const genoUrl = 'http://api.geonames.org/searchJSON?q=';
@@ -53,8 +54,8 @@ function generateEntry(e) {
 		// T00:00:00 is the time format the request takes in
 		return data.lat + ',' + data.lng + ',' + newEntry.from + 'T00:00:00';
 	})
-	.then(function(location) {
-		return getWeather(dskyUrl, apikey, location);
+	.then(function(lat_long_time) {
+		return getWeather(dskyUrl, apikey, lat_long_time);
 	})
 	.then(function(result) {
 		newEntry.weather = result.daily.data[0].summary;
@@ -83,7 +84,13 @@ function getDuration(date1, date2) {
 }
 
 // async GET LOCATION function
-const getLocation = async(baseUrl, city, username) => {
+const getLocation = async(baseUrl, str, username) => {
+
+
+	// replaces any space in the city name with +
+	// the g flag means to make replacement with all the spaces found
+	const city = str.replace(/\s+/g, '+');
+	console.log(baseUrl + city + username)
 	const response = await fetch(baseUrl + city + username);
 
 	try {
@@ -107,7 +114,13 @@ const getWeather = async(baseUrl, key, location) => {
 }
 
 // async GET IMAGE function
-const getImage = async(baseUrl, location, type) => {
+const getImage = async(baseUrl, str, type) => {
+
+	// replaces any space in the city name with +
+	// the g flag means to make replacement with all the spaces found
+	const location = str.replace(/\s+/g, '+');
+
+	console.log(baseUrl + location + type)
 	const response = await fetch(baseUrl + location + type);
 
 	try {
@@ -167,6 +180,13 @@ const updateUI = async() => {
 	}
 }
 
+function resetUI() {
+	document.getElementById('img').src = '';	
+	document.getElementById('date').innerHTML = '';
+	document.getElementById('weather').innerHTML = '';
+	document.getElementById('temp').innerHTML = '';
+}
+
 function addListener() {
 	document.getElementById('generate').addEventListener('click', generateEntry);
 }
@@ -175,7 +195,6 @@ function addListener() {
 function testing(day1, day2) {
   return getDuration(day1, day2);
 }
-
 export {
 	generateEntry,
 	getLocation,
@@ -183,6 +202,7 @@ export {
 	getImage,
 	postData,
 	updateUI,
+	resetUI,
 	addListener,
 	testing
 }

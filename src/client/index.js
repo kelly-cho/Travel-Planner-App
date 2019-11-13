@@ -4,6 +4,7 @@ import { getWeather } from './js/generateEntry';
 import { getImage } from './js/generateEntry';
 import { postData } from './js/generateEntry';
 import { updateUI } from './js/generateEntry';
+import { resetUI } from './js/generateEntry';
 import { addListener } from './js/generateEntry';
 import { abc } from './js/generateEntry'; 
 
