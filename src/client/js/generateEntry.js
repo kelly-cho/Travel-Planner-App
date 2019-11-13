@@ -61,8 +61,6 @@ function generateEntry(e) {
 		newEntry.high = result.daily.data[0].temperatureHigh;
 		newEntry.low = result.daily.data[0].temperatureLow;
 
-		console.log(newEntry.weather + " " + newEntry.high + " " + newEntry.low);
-
 		postData('http://localhost:8000', newEntry);
 	})
 	.then(function() {
@@ -78,9 +76,7 @@ function getDuration(date1, date2) {
 	const day1 = new Date(date1);
 	const day2 = new Date(date2);
 
-	console.log(day1 + " " + day2);
 	const diff = Math.abs(day2 - day1);
-	console.log("diff " + diff);
 
 	// divided by the number of milliseconds per day
 	return Math.ceil(diff / (1000 * 60 * 60 * 24)); 
@@ -112,7 +108,6 @@ const getWeather = async(baseUrl, key, location) => {
 
 // async GET IMAGE function
 const getImage = async(baseUrl, location, type) => {
-	console.log(baseUrl + location + type)
 	const response = await fetch(baseUrl + location + type);
 
 	try {
@@ -158,9 +153,9 @@ const updateUI = async() => {
 		// the length of the trip in days
 		const diff = getDuration(record.from, record.to) + 1;
 
-		document.getElementById('date').innerHTML = `From ${record.from} to ${record.to} [${diff} DAY]`;
-		document.getElementById('weather').innerHTML = 'Weahter: ' + record.weather;
-		document.getElementById('temp').innerHTML = 'Temperature: ' + record.low + ' &degF [LOW], ' + record.high + ' &degF [HIGH]';
+		document.getElementById('date').innerHTML = `From ${record.from} to ${record.to} (${diff} DAYS)`;
+		document.getElementById('weather').innerHTML = 'Weather: ' + record.weather;
+		document.getElementById('temp').innerHTML = 'Temperature: ' + record.low + ' &degF (LOW), ' + record.high + ' &degF (HIGH)';
 
 		// reset enter fields
 		document.getElementById('input-city').value = '';
@@ -176,6 +171,11 @@ function addListener() {
 	document.getElementById('generate').addEventListener('click', generateEntry);
 }
 
+// for testing JEST
+function testing(day1, day2) {
+  return getDuration(day1, day2);
+}
+
 export {
 	generateEntry,
 	getLocation,
@@ -183,5 +183,6 @@ export {
 	getImage,
 	postData,
 	updateUI,
-	addListener
+	addListener,
+	testing
 }
